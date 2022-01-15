@@ -9,6 +9,8 @@ const middleware = (req: Request, res: Response, next: NextFunction) => {
   next();
 };
 
+app.use(middleware);
+
 const handleGetBookOne = (req: Request, res: Response, next: NextFunction) => {
   console.log("handleGetBookOne", req.params);
 
@@ -22,11 +24,7 @@ const handleGetBookTwo = (req: Request, res: Response) => {
   return res.send(req.params);
 };
 
-app.get(
-  "/api/books/:bookId/:authorId",
-  [middleware],
-  [handleGetBookOne, handleGetBookTwo]
-);
+app.get("/api/books/:bookId/:authorId", [handleGetBookOne, handleGetBookTwo]);
 
 app.listen(3000, () => {
   // eslint-disable-next-line no-console
