@@ -5,15 +5,12 @@ async function throwsError() {
 }
 
 function routes(app: Express) {
+  type requestParams = { bookId: string; suthorId: string };
+  type requestBody = { name: string };
   app.get(
     "/api/books/:bookId/:authorId",
     (
-      req: Request<
-        { bookId: string; suthorId: string },
-        unknown,
-        { name: string },
-        unknown
-      >,
+      req: Request<requestParams, unknown, requestBody, unknown>,
       res: Response
     ) => {
       return res.send(req.params);
