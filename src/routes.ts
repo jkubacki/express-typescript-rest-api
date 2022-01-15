@@ -1,21 +1,12 @@
 import { Express, Request, Response } from "express";
+import getBookHandler from "./controllers/books.controller";
 
 async function throwsError() {
   throw new Error("Boom!");
 }
 
 function routes(app: Express) {
-  type requestParams = { bookId: string; suthorId: string };
-  type requestBody = { name: string };
-  app.get(
-    "/api/books/:bookId/:authorId",
-    (
-      req: Request<requestParams, unknown, requestBody, unknown>,
-      res: Response
-    ) => {
-      return res.send(req.params);
-    }
-  );
+  app.get("/api/books/:bookId/:authorId", getBookHandler);
 
   app.get("/error", async (req: Request, res: Response) => {
     try {
