@@ -4,12 +4,14 @@ const app = express();
 
 app.use(express.json());
 
-const middleware = (req: Request, res: Response, next: NextFunction) => {
-  req.name = "Kuba";
-  next();
-};
+const middleware =
+  ({ name }: { name: string }) =>
+  (req: Request, res: Response, next: NextFunction) => {
+    req.name = name;
+    next();
+  };
 
-app.use(middleware);
+app.use(middleware({ name: "Kuba" }));
 
 const handleGetBookOne = (req: Request, res: Response, next: NextFunction) => {
   console.log("handleGetBookOne", req.params);
