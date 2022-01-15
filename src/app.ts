@@ -14,7 +14,16 @@ const middleware =
 
 app.use(middleware({ name: "Kuba" }));
 
-const handleGetBookOne = (req: Request, res: Response, next: NextFunction) => {
+const handleGetBookOne = (
+  req: Request<
+    { bookId: string; suthorId: string },
+    unknown,
+    { name: string },
+    unknown
+  >,
+  res: Response,
+  next: NextFunction
+) => {
   console.log("handleGetBookOne", req.params);
 
   next();
