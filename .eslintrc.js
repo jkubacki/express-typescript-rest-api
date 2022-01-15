@@ -3,7 +3,11 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: ["airbnb-base", "plugin:prettier/recommended"],
+  extends: [
+    "airbnb-base",
+    "airbnb-typescript/base",
+    "plugin:prettier/recommended",
+  ],
   overrides: [
     {
       extends: [
@@ -27,5 +31,13 @@ module.exports = {
     "prettier/prettier": "error",
     "no-shadow": "off",
     "@typescript-eslint/no-shadow": ["error"],
+  },
+  settings: {
+    "import/resolver": {
+      node: {
+        paths: ["src"],
+        extensions: [".js", ".ts", ".d.ts", ".tsx"],
+      },
+    },
   },
 };

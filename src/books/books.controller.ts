@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 
-type bookHandlerParams = { bookId: string; suthorId: string };
-type bookHandlerBody = { name: string };
+type BookHandlerParams = { bookId: string; suthorId: string };
+type BookHandlerBody = { name: string };
 function getBookHandler(
-  req: Request<bookHandlerParams, unknown, bookHandlerBody, unknown>,
+  req: Request<BookHandlerParams, unknown, BookHandlerBody, unknown>,
   res: Response
 ) {
   return res.send(req.params);
