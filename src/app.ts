@@ -8,7 +8,7 @@ app.use(express.json());
 const middleware =
   ({ name }: { name: string }) =>
   (req: Request, res: Response, next: NextFunction) => {
-    req.name = name;
+    res.locals.name = name;
     next();
   };
 
@@ -22,7 +22,7 @@ const handleGetBookOne = (req: Request, res: Response, next: NextFunction) => {
 
 const handleGetBookTwo = (req: Request, res: Response) => {
   console.log("handleGetBookTwo", req.params);
-  console.log("added by middleware:", req.name);
+  console.log("added by middleware:", res.locals.name);
 
   return res.send(req.params);
 };
