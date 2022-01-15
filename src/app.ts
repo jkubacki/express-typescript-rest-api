@@ -1,12 +1,22 @@
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 
 const app = express();
 
 app.use(express.json());
 
-app.get("/api/books/:bookId/:authorId", (req: Request, res: Response) => {
+const handleGetBookOne = (req: Request, res: Response, next: NextFunction) => {
+  console.log("handleGetBookOne", req.params);
+
+  next();
+};
+
+const handleGetBookTwo = (req: Request, res: Response) => {
+  console.log("handleGetBookTwo", req.params);
+
   return res.send(req.params);
-});
+};
+
+app.get("/api/books/:bookId/:authorId", [handleGetBookOne, handleGetBookTwo]);
 
 app.listen(3000, () => {
   // eslint-disable-next-line no-console
