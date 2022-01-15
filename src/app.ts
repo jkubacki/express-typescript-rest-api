@@ -4,6 +4,11 @@ const app = express();
 
 app.use(express.json());
 
+const middleware = (req: Request, res: Response, next: NextFunction) => {
+  req.name = "Kuba";
+  next();
+};
+
 const handleGetBookOne = (req: Request, res: Response, next: NextFunction) => {
   console.log("handleGetBookOne", req.params);
 
@@ -12,11 +17,16 @@ const handleGetBookOne = (req: Request, res: Response, next: NextFunction) => {
 
 const handleGetBookTwo = (req: Request, res: Response) => {
   console.log("handleGetBookTwo", req.params);
+  console.log("added by middleware:", req.name);
 
   return res.send(req.params);
 };
 
-app.get("/api/books/:bookId/:authorId", [handleGetBookOne, handleGetBookTwo]);
+app.get(
+  "/api/books/:bookId/:authorId",
+  [middleware],
+  [handleGetBookOne, handleGetBookTwo]
+);
 
 app.listen(3000, () => {
   // eslint-disable-next-line no-console
