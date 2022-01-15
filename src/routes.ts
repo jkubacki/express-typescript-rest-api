@@ -1,5 +1,5 @@
 import { Express, Request, Response } from "express";
-import getBookHandler from "./controllers/books.controller";
+import getBookHandler from "./books/books.controller";
 
 async function throwsError() {
   throw new Error("Boom!");
