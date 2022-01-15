@@ -38,6 +38,19 @@ const handleGetBookTwo = (req: Request, res: Response) => {
 
 app.get("/api/books/:bookId/:authorId", [handleGetBookOne, handleGetBookTwo]);
 
+async function throwsError() {
+  throw new Error("Boom!");
+}
+
+app.get("/error", async (req: Request, res: Response) => {
+  try {
+    await throwsError();
+    res.sendStatus(200);
+  } catch (e) {
+    res.status(400).send("Something bad happened");
+  }
+});
+
 app.listen(3000, () => {
   // eslint-disable-next-line no-console
   console.log("Application listening at http://localhost:3000");
