@@ -4,7 +4,7 @@ import config from "config";
 import { Request, Response } from "express";
 import { validatePassword } from "../user/user.service";
 import { signJwt } from "../utils/jwt.utils";
-import { createSession, findSessions } from "./session.service";
+import { createSession, findSessions, updateSession } from "./session.service";
 
 export async function createSessionHandler(req: Request, res: Response) {
   const user = await validatePassword(req.body);
@@ -37,4 +37,15 @@ export async function getUserSessionsHandler(req: Request, res: Response) {
   const sessions = await findSessions({ user: userId, valid: true });
 
   return res.send(sessions);
+}
+
+export async function deleteSessionsHandler(req: Request, res: Response) {
+  const sessionId = res.locals.user.session;
+
+  await updateSession({ _id: sessionId }, { valid: false });
+
+  return res.send({
+    accessToken: null,
+    refreshToken: null,
+  });
 }
