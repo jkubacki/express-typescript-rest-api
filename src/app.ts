@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import express, { NextFunction, Request, Response } from "express";
-import helmet from 'helmet'
+import helmet from "helmet";
 import routes from "./routes";
 
 const app = express();

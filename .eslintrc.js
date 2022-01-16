@@ -16,8 +16,8 @@ module.exports = {
       ],
       files: ["*.ts"],
       parserOptions: {
-        project: ["./tsconfig.json"],
-        projectFolderIgnoreList: [],
+        project: "tsconfig.json",
+        tsconfigRootDir: __dirname,
       },
     },
   ],
@@ -25,6 +25,7 @@ module.exports = {
   parserOptions: {
     ecmaVersion: 13,
     sourceType: "module",
+    project: "./tsconfig.json",
   },
   plugins: ["@typescript-eslint", "prettier"],
   rules: {
@@ -40,4 +41,5 @@ module.exports = {
       },
     },
   },
+  ignorePatterns: ['.eslintrc.js']
 };
