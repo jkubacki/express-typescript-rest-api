@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import config from "config";
 
 export function signJwt(
-  object: Object,
+  object: Record<string, unknown>,
   keyName: "accessTokenPrivateKey" | "refreshTokenPrivateKey",
   options?: jwt.SignOptions | undefined
 ) {
@@ -32,11 +32,10 @@ export function verifyJwt(
       expired: false,
       decoded,
     };
-  } catch (e: any) {
-    console.error(e);
+  } catch (e: unknown) {
     return {
       valid: false,
-      expired: e.message === "jwt expired",
+      expired: (e as Error).message === "jwt expired",
       decoded: null,
     };
   }
