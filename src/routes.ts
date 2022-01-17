@@ -10,6 +10,7 @@ import {
 import { createSessionSchema } from "./session/session.schema";
 import requireUser from "./middleware/requireUser";
 import { createProductHandler } from "./product/product.controller";
+import { createProductSchema } from "./product/product.schema";
 
 function routes(app: Express) {
   app.get("/healthcheck", (req: Request, res: Response) => res.sendStatus(200));
@@ -26,6 +27,10 @@ function routes(app: Express) {
 
   app.delete("/api/sessions", requireUser, deleteSessionsHandler);
 
-  app.post("/api/products", requireUser, createProductHandler);
+  app.post(
+    "/api/products",
+    [requireUser, validateResource(createProductSchema)],
+    createProductHandler
+  );
 }
 export default routes;
